@@ -12,15 +12,17 @@ class HomeApp extends StatelessWidget {
         backgroundColor: Colors.amber,
         body: Padding(
           padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Card(
-                color: Colors.blue,
-                child: Text('Week Statistic'),
-              ),
-              ExpensesManager(),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Card(
+                  color: Colors.blue,
+                  child: Text('Week Statistic'),
+                ),
+                ExpensesManager(),
+              ],
+            ),
           ),
         ),
       ),

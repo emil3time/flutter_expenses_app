@@ -1,6 +1,6 @@
 class ExpensesEventModel {
-  final int id;
-  final int price;
+  final DateTime id;
+  final double price;
   final String name;
   DateTime time = DateTime.now();
   ExpensesEventModel(
