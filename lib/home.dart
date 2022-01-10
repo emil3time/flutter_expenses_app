@@ -27,6 +27,7 @@ class HomeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.amber,
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -41,14 +42,47 @@ class HomeApp extends StatelessWidget {
               children: [
                 ...events.map(
                   (event) => Card(
+                    elevation: 10,
                     child: Row(
                       children: [
-                        Container(child: Text(event.price.toString())),
+                        Container(
+                          width: 60,
+                          margin: EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Color(0xffadaddd),
+                            ),
+                          ),
+                          padding: EdgeInsets.all(10),
+                          child: Text(
+                            event.price.toString(),
+                            textAlign: TextAlign.end,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 30,
+                        ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(event.name),
-                            Text(event.time.toString()),
+                            Text(
+                              event.name,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 24,
+                              ),
+                            ),
+                            Text(
+                              event.time.toString(),
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Colors.grey),
+                            ),
                           ],
                         )
                       ],
