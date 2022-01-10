@@ -1,9 +1,9 @@
-class ExpensesEvent {
+class ExpensesEventModel {
   final int id;
   final int price;
   final String name;
   DateTime time = DateTime.now();
-  ExpensesEvent(
+  ExpensesEventModel(
       {required this.id,
       required this.price,
       required this.name,
