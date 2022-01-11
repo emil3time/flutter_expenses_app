@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 
-class InputCardWidget extends StatelessWidget {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController priceController = TextEditingController();
-
+class InputCardWidget extends StatefulWidget {
   Function addNewEventA;
   InputCardWidget(this.addNewEventA);
+
+  @override
+  State<InputCardWidget> createState() => _InputCardWidgetState();
+}
+
+class _InputCardWidgetState extends State<InputCardWidget> {
+  final TextEditingController nameController = TextEditingController();
+
+  final TextEditingController priceController = TextEditingController();
 
   void submitData() {
     final textInput = nameController.text;
@@ -14,7 +20,9 @@ class InputCardWidget extends StatelessWidget {
     if (textInput.isEmpty || textInput.length > 15 || amountInput <= 0) {
       return;
     }
-    addNewEventA(textInput, amountInput);
+
+    widget.addNewEventA(textInput, amountInput);
+    Navigator.of(context).pop();
   }
 
   @override

@@ -16,6 +16,9 @@ class ExpensesListWidget extends StatelessWidget {
             itemCount: eventsA.length,
             itemBuilder: (_, index) {
               return Card(
+                shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.horizontal(left: Radius.circular(15))),
                 elevation: 15,
                 child: Row(
                   children: [
