@@ -28,45 +28,52 @@ class _InputCardWidgetState extends State<InputCardWidget> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.elliptical(222, 10))),
       elevation: 10,
-      child: Column(
-        children: [
-          TextField(
-            onSubmitted: (_) => submitData(),
-            style: TextStyle(fontSize: 22),
-            keyboardType: TextInputType.text,
-            controller: nameController,
-            decoration: InputDecoration(
-                labelText: '   expense  ',
-                labelStyle: TextStyle(
-                  fontSize: 20,
-                )),
-          ),
-          TextField(
-            onSubmitted: (_) => submitData(),
-            style: TextStyle(fontSize: 22),
-            keyboardType: TextInputType.number,
-            controller: priceController,
-            decoration: InputDecoration(
-                labelText: '   amount (PLN)',
-                labelStyle: TextStyle(
-                  fontSize: 20,
-                )),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              ElevatedButton(
-                  onPressed: () {
-                    submitData();
-                  },
-                  child: Text(
-                    'add new event',
-                    style: TextStyle(fontSize: 16),
+      child: SizedBox(
+        height: 400,
+        child: Column(
+          children: [
+            TextField(
+              onSubmitted: (_) => submitData(),
+              style: TextStyle(fontSize: 22),
+              keyboardType: TextInputType.text,
+              controller: nameController,
+              decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(10.0),
+                  labelText: '   expense  ',
+                  labelStyle: TextStyle(
+                    fontSize: 20,
                   )),
-            ],
-          ),
-        ],
+            ),
+            TextField(
+              onSubmitted: (_) => submitData(),
+              style: TextStyle(fontSize: 22),
+              keyboardType: TextInputType.number,
+              controller: priceController,
+              decoration: InputDecoration(
+                  contentPadding: EdgeInsets.all(10.0),
+                  labelText: '   amount (PLN)',
+                  labelStyle: TextStyle(
+                    fontSize: 20,
+                  )),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                ElevatedButton(
+                    onPressed: () {
+                      submitData();
+                    },
+                    child: Text(
+                      'add new event',
+                      style: TextStyle(fontSize: 16),
+                    )),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

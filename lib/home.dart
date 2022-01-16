@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_expenses_app/widget/chart_widget.dart';
 
 import './widget/input_card_widget.dart';
 import './widget/expenses_list_widget.dart';
@@ -31,6 +32,12 @@ class _HomeAppState extends State<HomeApp> {
     ),
   ];
 
+  List<ExpensesEventModel> get _lastWeekTransactions {
+    return _events.where((element) {
+      return element.time.isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
+
   void _addNewEvent(String newName, double newPrice) {
     final newEvent = ExpensesEventModel(
       id: DateTime.now(),
@@ -45,6 +52,9 @@ class _HomeAppState extends State<HomeApp> {
 
   startAddNewEvent(parentContext) {
     showModalBottomSheet(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+        backgroundColor: Colors.transparent,
         context: (parentContext),
         builder: (contextMBS) {
           return InputCardWidget(_addNewEvent);
@@ -84,10 +94,7 @@ class _HomeAppState extends State<HomeApp> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Card(
-                  color: Colors.blue,
-                  child: Text('Week Statistic'),
-                ),
+                Chart(lastWeekTransactionsA: _lastWeekTransactions),
                 ExpensesListWidget(eventsA: _events),
               ],
             ),

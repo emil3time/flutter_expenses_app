@@ -53,9 +53,9 @@ class ExpensesListWidget extends StatelessWidget {
                         Text(
                           eventsA[index].name,
                           style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 24,
-                          ),
+                              fontWeight: FontWeight.w500,
+                              fontSize: 24,
+                              fontFamily: 'Quicksand'),
                         ),
                         Text(
                           DateFormat.yMMMMEEEEd().format(eventsA[index].time),
