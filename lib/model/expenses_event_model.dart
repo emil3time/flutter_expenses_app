@@ -1,5 +1,5 @@
 class ExpensesEventModel {
-  final DateTime id;
+  final String id;
   final double price;
   final String name;
   DateTime time = DateTime.now();

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_expenses_app/widget/chart_bar_widget.dart';
 import 'package:intl/intl.dart';
@@ -44,12 +45,15 @@ class Chart extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           ...allWeekTransactions
-              .map((e) => ChartBar(
-                  dayLabel: (e['day'] as String),
-                  dayAmount: (e['amount'] as double),
-                  procOfTotalWeekAmount: totalMoneySpend == 0.0
-                      ? 0.0
-                      : (e['amount'] as double) / totalMoneySpend))
+              .map((e) => Flexible(
+                    fit: FlexFit.tight,
+                    child: ChartBar(
+                        dayLabel: (e['day'] as String),
+                        dayAmount: (e['amount'] as double),
+                        procOfTotalWeekAmount: totalMoneySpend == 0.0
+                            ? 0.0
+                            : (e['amount'] as double) / totalMoneySpend),
+                  ))
               .toList()
               .reversed
         ],

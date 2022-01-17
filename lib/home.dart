@@ -11,26 +11,7 @@ class HomeApp extends StatefulWidget {
 }
 
 class _HomeAppState extends State<HomeApp> {
-  List<ExpensesEventModel> _events = [
-    ExpensesEventModel(
-      id: DateTime.now(),
-      price: 5,
-      name: 'glass',
-      time: DateTime.now(),
-    ),
-    ExpensesEventModel(
-      id: DateTime.now(),
-      price: 77.7,
-      name: 'liquer',
-      time: DateTime.now(),
-    ),
-    ExpensesEventModel(
-      id: DateTime.now(),
-      price: 233.33,
-      name: 'coca-cola',
-      time: DateTime.now(),
-    ),
-  ];
+  List<ExpensesEventModel> _events = [];
 
   List<ExpensesEventModel> get _lastWeekTransactions {
     return _events.where((element) {
@@ -40,7 +21,7 @@ class _HomeAppState extends State<HomeApp> {
 
   void _addNewEvent(String newName, double newPrice, DateTime userDate) {
     final newEvent = ExpensesEventModel(
-      id: DateTime.now(),
+      id: DateTime.now().toString(),
       price: newPrice,
       name: newName,
       time: userDate,
@@ -50,8 +31,10 @@ class _HomeAppState extends State<HomeApp> {
     });
   }
 
-  void _deleteEvent(DateTime eventId) {
-    _events.removeWhere((e) => e.id == eventId);
+  void _deleteEvent(String id) {
+    setState(() {
+      _events.removeWhere((e) => e.id == id);
+    });
   }
 
   startAddNewEvent(parentContext) {
@@ -102,7 +85,10 @@ class _HomeAppState extends State<HomeApp> {
                 SizedBox(
                   height: 20,
                 ),
-                ExpensesListWidget(eventsA: _events),
+                ExpensesListWidget(
+                  eventsA: _events,
+                  deleteEventA: _deleteEvent,
+                ),
               ],
             ),
           ),

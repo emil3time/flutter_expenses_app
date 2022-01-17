@@ -3,15 +3,17 @@ import 'package:intl/intl.dart';
 import '../model/expenses_event_model.dart';
 
 class ExpensesListWidget extends StatelessWidget {
-  List<ExpensesEventModel> eventsA;
+  final List<ExpensesEventModel> eventsA;
+  final Function deleteEventA;
 
-  ExpensesListWidget({required this.eventsA});
+  ExpensesListWidget({required this.eventsA, required this.deleteEventA});
 
   Widget build(BuildContext context) {
     return Column(
       children: [
         Container(
           height: 350,
+          width: 350,
           child: ListView.builder(
             itemCount: eventsA.length,
             itemBuilder: (_, index) {
@@ -51,30 +53,40 @@ class ExpensesListWidget extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: 30,
+                      width: 10,
                     ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          eventsA[index].name,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 24,
-                              fontFamily: 'Quicksand'),
-                        ),
-                        Text(
-                          DateFormat.yMMMMd().format(eventsA[index].time),
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
-                              color: Colors.grey),
-                        ),
-                      ],
+                    Container(
+                      width: 162,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          FittedBox(
+                            child: Text(
+                              eventsA[index].name,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 24,
+                                  fontFamily: 'Quicksand'),
+                            ),
+                          ),
+                          Text(
+                            DateFormat.yMMMMd().format(eventsA[index].time),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Colors.grey),
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(
-                      width: 50,
+                      width: 10,
                     ),
+                    IconButton(
+                        onPressed: () {
+                          deleteEventA(eventsA[index].id);
+                        },
+                        icon: Icon(Icons.clear))
                   ],
                 ),
               );

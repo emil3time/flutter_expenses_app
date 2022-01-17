@@ -15,7 +15,8 @@ class _InputCardWidgetState extends State<InputCardWidget> {
 
   final TextEditingController priceController = TextEditingController();
 
-  DateTime startUserDate = DateTime.now();
+  DateTime startUserDate = DateTime.utc(1994);
+  DateTime currebtDate = DateTime.now();
 
   void submitData() {
     if (priceController.text.isEmpty) {
@@ -25,9 +26,8 @@ class _InputCardWidgetState extends State<InputCardWidget> {
     final amountInput = double.parse(priceController.text);
 
     if (textInput.isEmpty ||
-        textInput.length > 15 ||
         amountInput <= 0 ||
-        startUserDate == DateTime.now()) {
+        startUserDate == DateTime.utc(1994)) {
       return;
     }
 
@@ -37,10 +37,11 @@ class _InputCardWidgetState extends State<InputCardWidget> {
 
   Future<void> startSelectData(BuildContext context) async {
     DateTime? picker = await showDatePicker(
-        context: context,
-        initialDate: startUserDate,
-        firstDate: DateTime(2022, 1, 1),
-        lastDate: DateTime(2050));
+      context: context,
+      initialDate: currebtDate,
+      firstDate: currebtDate.subtract(Duration(days: 7)),
+      lastDate: currebtDate,
+    );
     if (picker != null && picker != startUserDate) {
       setState(() {
         startUserDate = picker;
@@ -64,6 +65,7 @@ class _InputCardWidgetState extends State<InputCardWidget> {
               onSubmitted: (_) => submitData(),
               style: TextStyle(fontSize: 22),
               keyboardType: TextInputType.text,
+              maxLength: 12,
               controller: nameController,
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(10.0),
@@ -77,6 +79,7 @@ class _InputCardWidgetState extends State<InputCardWidget> {
               style: TextStyle(fontSize: 22),
               keyboardType: TextInputType.number,
               controller: priceController,
+              maxLength: 4,
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(10.0),
                   labelText: '   amount (PLN)',
@@ -90,7 +93,7 @@ class _InputCardWidgetState extends State<InputCardWidget> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    startUserDate == DateTime.now()
+                    startUserDate == DateTime.utc(1994)
                         ? 'no data choosen yet!'
                         : DateFormat.yMd().format(startUserDate),
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),

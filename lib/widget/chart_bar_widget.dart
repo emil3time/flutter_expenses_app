@@ -13,27 +13,45 @@ class ChartBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return (Card(
+      elevation: 20,
+      color: Colors.blue,
       child: Column(
         children: [
           Stack(
             children: [
               Container(
-                height: 100,
+                height: 120,
                 width: 15,
                 color: Colors.grey.shade300,
-                child: FractionallySizedBox(
-                  heightFactor: procOfTotalWeekAmount,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.amber,
+                child: Align(
+                  alignment: Alignment.bottomCenter,
+                  child: FractionallySizedBox(
+                    heightFactor: procOfTotalWeekAmount,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.amber,
+                      ),
                     ),
                   ),
                 ),
               )
             ],
           ),
-          Text(dayLabel),
-          Text(dayAmount.toStringAsFixed(0)),
+          FittedBox(
+            child: Text(
+              dayLabel,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.white),
+            ),
+          ),
+          FittedBox(
+              child: Text(
+            dayAmount.toStringAsFixed(0),
+            style: TextStyle(
+                fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+          )),
         ],
       ),
     ));
