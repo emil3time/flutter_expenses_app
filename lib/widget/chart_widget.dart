@@ -41,13 +41,17 @@ class Chart extends StatelessWidget {
       color: Colors.blue,
       elevation: 10,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          ...allWeekTransactions.map((e) => ChartBar(
-              dayLabel: (e['day'] as String),
-              dayAmount: (e['amount'] as double),
-              procOfTotalWeekAmount: totalMoneySpend == 0.0
-                  ? 0.0
-                  : (e['amount'] as double) / totalMoneySpend))
+          ...allWeekTransactions
+              .map((e) => ChartBar(
+                  dayLabel: (e['day'] as String),
+                  dayAmount: (e['amount'] as double),
+                  procOfTotalWeekAmount: totalMoneySpend == 0.0
+                      ? 0.0
+                      : (e['amount'] as double) / totalMoneySpend))
+              .toList()
+              .reversed
         ],
       ),
     );

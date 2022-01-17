@@ -38,16 +38,20 @@ class _HomeAppState extends State<HomeApp> {
     }).toList();
   }
 
-  void _addNewEvent(String newName, double newPrice) {
+  void _addNewEvent(String newName, double newPrice, DateTime userDate) {
     final newEvent = ExpensesEventModel(
       id: DateTime.now(),
       price: newPrice,
       name: newName,
-      time: DateTime.now(),
+      time: userDate,
     );
     setState(() {
       _events.add(newEvent);
     });
+  }
+
+  void _deleteEvent(DateTime eventId) {
+    _events.removeWhere((e) => e.id == eventId);
   }
 
   startAddNewEvent(parentContext) {
@@ -95,6 +99,9 @@ class _HomeAppState extends State<HomeApp> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Chart(lastWeekTransactionsA: _lastWeekTransactions),
+                SizedBox(
+                  height: 20,
+                ),
                 ExpensesListWidget(eventsA: _events),
               ],
             ),

@@ -35,13 +35,19 @@ class ExpensesListWidget extends StatelessWidget {
                         ),
                       ),
                       padding: EdgeInsets.all(5),
-                      child: Text(
-                        eventsA[index].price.toStringAsFixed(2),
-                        textAlign: TextAlign.end,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 26,
-                            color: Colors.blue),
+                      child: FittedBox(
+                        child: SizedBox(
+                          height: 33,
+                          width: 80,
+                          child: Text(
+                            eventsA[index].price.toStringAsFixed(2),
+                            textAlign: TextAlign.end,
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 26,
+                                color: Colors.blue),
+                          ),
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -58,14 +64,17 @@ class ExpensesListWidget extends StatelessWidget {
                               fontFamily: 'Quicksand'),
                         ),
                         Text(
-                          DateFormat.yMMMMEEEEd().format(eventsA[index].time),
+                          DateFormat.yMMMMd().format(eventsA[index].time),
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
                               color: Colors.grey),
                         ),
                       ],
-                    )
+                    ),
+                    SizedBox(
+                      width: 50,
+                    ),
                   ],
                 ),
               );
@@ -76,3 +85,30 @@ class ExpensesListWidget extends StatelessWidget {
     );
   }
 }
+
+// Card(
+// color: Colors.amber.shade700,
+// margin: EdgeInsets.symmetric(vertical: 7, horizontal: 2),
+// elevation: 15,
+// child: ListTile(
+// leading: CircleAvatar(
+// radius: 30,
+// child: FittedBox(
+// child: Padding(
+// padding: EdgeInsets.all(10),
+// child: Text(
+// eventsA[index].price.toStringAsFixed(2),
+// style: TextStyle(
+// fontWeight: FontWeight.bold, fontSize: 20),
+// ),
+// ),
+// ),
+// ),
+// title: Text(
+// eventsA[index].name,
+// style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+// ),
+// subtitle:
+// Text(DateFormat.yMMMEd().format(eventsA[index].time)),
+// ),
+// );

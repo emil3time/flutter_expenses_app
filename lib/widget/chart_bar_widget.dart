@@ -15,24 +15,22 @@ class ChartBar extends StatelessWidget {
     return (Card(
       child: Column(
         children: [
-          Container(
-            child: Stack(
-              children: [
-                Container(
-                  height: 60,
-                  width: 15,
-                  color: Colors.white,
-                  child: FractionallySizedBox(
-                    heightFactor: procOfTotalWeekAmount,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.amber,
-                      ),
+          Stack(
+            children: [
+              Container(
+                height: 100,
+                width: 15,
+                color: Colors.grey.shade300,
+                child: FractionallySizedBox(
+                  heightFactor: procOfTotalWeekAmount,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.amber,
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           ),
           Text(dayLabel),
           Text(dayAmount.toStringAsFixed(0)),
