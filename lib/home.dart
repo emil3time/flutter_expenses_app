@@ -85,10 +85,28 @@ class _HomeAppState extends State<HomeApp> {
                 SizedBox(
                   height: 20,
                 ),
-                ExpensesListWidget(
-                  eventsA: _events,
-                  deleteEventA: _deleteEvent,
-                ),
+                _events.isEmpty
+                    ? Column(
+                        children: [
+                          SizedBox(
+                              height: 300,
+                              child: Image.asset('assets/images/money.png')),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Text(
+                            'Your list is empty - start counting!',
+                            style: TextStyle(
+                                fontSize: 24,
+                                fontFamily: 'Quicksand',
+                                fontWeight: FontWeight.w500),
+                          )
+                        ],
+                      )
+                    : ExpensesListWidget(
+                        eventsA: _events,
+                        deleteEventA: _deleteEvent,
+                      ),
               ],
             ),
           ),

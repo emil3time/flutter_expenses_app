@@ -65,27 +65,29 @@ class _InputCardWidgetState extends State<InputCardWidget> {
               onSubmitted: (_) => submitData(),
               style: TextStyle(fontSize: 22),
               keyboardType: TextInputType.text,
-              maxLength: 12,
+              maxLength: 15,
               controller: nameController,
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(10.0),
                   labelText: '   expense  ',
                   labelStyle: TextStyle(
-                    fontSize: 20,
-                  )),
+                      fontSize: 20,
+                      fontFamily: 'OpenSans',
+                      fontWeight: FontWeight.w400)),
             ),
             TextField(
               onSubmitted: (_) => submitData(),
               style: TextStyle(fontSize: 22),
               keyboardType: TextInputType.number,
               controller: priceController,
-              maxLength: 4,
+              maxLength: 6,
               decoration: InputDecoration(
                   contentPadding: EdgeInsets.all(10.0),
                   labelText: '   amount (PLN)',
                   labelStyle: TextStyle(
-                    fontSize: 20,
-                  )),
+                      fontSize: 20,
+                      fontFamily: 'OpenSans',
+                      fontWeight: FontWeight.w400)),
             ),
             Container(
               margin: EdgeInsets.all(26),
@@ -94,9 +96,9 @@ class _InputCardWidgetState extends State<InputCardWidget> {
                 children: [
                   Text(
                     startUserDate == DateTime.utc(1994)
-                        ? 'no data choosen yet!'
+                        ? 'no date selected!'
                         : DateFormat.yMd().format(startUserDate),
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                   ),
                   TextButton(
                       onPressed: () {
@@ -120,13 +122,16 @@ class _InputCardWidgetState extends State<InputCardWidget> {
               children: [
                 Container(
                   child: ElevatedButton(
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all(EdgeInsets.all(10)),
+                      ),
                       onPressed: () {
                         submitData();
                       },
                       child: Text(
                         'add new event',
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                            fontSize: 24, fontWeight: FontWeight.bold),
                       )),
                 ),
               ],
