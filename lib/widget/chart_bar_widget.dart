@@ -12,48 +12,66 @@ class ChartBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (Card(
-      elevation: 20,
-      color: Colors.blue,
-      child: Column(
-        children: [
-          Stack(
-            children: [
-              Container(
-                height: 120,
-                width: 15,
-                color: Colors.grey.shade300,
-                child: Align(
-                  alignment: Alignment.bottomCenter,
-                  child: FractionallySizedBox(
-                    heightFactor: procOfTotalWeekAmount,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.amber,
+    return LayoutBuilder(
+      builder: (context, constraints) => (Card(
+        elevation: 20,
+        color: Colors.blue,
+        child: Column(
+          children: [
+            Stack(
+              children: [
+                Container(
+                  height: constraints.maxHeight * 0.67,
+                  width: constraints.maxWidth * 0.20,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(7), bottom: Radius.circular(7)),
+                  ),
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: FractionallySizedBox(
+                      heightFactor: procOfTotalWeekAmount,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.amber,
+                          borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(7),
+                              bottom: Radius.circular(7)),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              )
-            ],
-          ),
-          FittedBox(
-            child: Text(
-              dayLabel,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.white),
+              ],
             ),
-          ),
-          FittedBox(
-              child: Text(
-            dayAmount.toStringAsFixed(0),
-            style: TextStyle(
-                fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
-          )),
-        ],
-      ),
-    ));
+            SizedBox(
+              // height: constraints.maxHeight * 0.15,
+              child: FittedBox(
+                child: Text(
+                  dayLabel,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.white),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: constraints.maxHeight * 0.15,
+              child: FittedBox(
+                child: Text(
+                  dayAmount.toStringAsFixed(0),
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                      color: Colors.white),
+                ),
+              ),
+            ),
+          ],
+        ),
+      )),
+    );
   }
 }

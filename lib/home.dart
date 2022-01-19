@@ -12,6 +12,7 @@ class HomeApp extends StatefulWidget {
 
 class _HomeAppState extends State<HomeApp> {
   List<ExpensesEventModel> _events = [];
+  bool showChart = false;
 
   List<ExpensesEventModel> get _lastWeekTransactions {
     return _events.where((element) {
@@ -39,20 +40,51 @@ class _HomeAppState extends State<HomeApp> {
 
   startAddNewEvent(parentContext) {
     showModalBottomSheet(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+        // true all keyboard is above | false keyboard partially visible but scrollable
+        isScrollControlled: true,
         backgroundColor: Colors.transparent,
         context: (parentContext),
         builder: (contextMBS) {
-          return InputCardWidget(_addNewEvent);
+          return SingleChildScrollView(
+              child: Container(
+                  padding: EdgeInsets.only(
+                    // corresponds to the top of keyboards
+                    bottom: MediaQuery.of(context).viewInsets.bottom,
+                  ),
+                  child: InputCardWidget(_addNewEvent)));
         });
   }
 
   @override
   Widget build(BuildContext context) {
+    final appBar = AppBar(
+      actions: [
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () {
+            startAddNewEvent(context);
+          },
+        )
+      ],
+      title: Text('expenses'),
+    );
+
+    final landscapeMode =
+        MediaQuery.of(context).orientation == Orientation.landscape;
+
+    final sharedByOrientationExpensesList = SizedBox(
+      //screen height - app bar height - system bar icons = actual working height area
+      height: (MediaQuery.of(context).size.height * 0.6) -
+          appBar.preferredSize.height -
+          MediaQuery.of(context).padding.top,
+      child: ExpensesListWidget(
+        eventsA: _events,
+        deleteEventA: _deleteEvent,
+      ),
+    );
     return SafeArea(
       child: Scaffold(
-        floatingActionButton: FloatingActionButton.large(
+        floatingActionButton: FloatingActionButton(
           onPressed: () {
             startAddNewEvent(context);
           },
@@ -63,52 +95,46 @@ class _HomeAppState extends State<HomeApp> {
           ),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        appBar: AppBar(
-          actions: [
-            IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () {
-                startAddNewEvent(context);
-              },
-            )
-          ],
-          title: Text('expenses'),
-        ),
+        //  appBar in final variable to minus  appBar.preferredSize.height from MediaQuery
+        appBar: appBar,
         backgroundColor: Colors.amber,
         body: Padding(
           padding: const EdgeInsets.fromLTRB(20, 10, 10, 10),
           child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Chart(lastWeekTransactionsA: _lastWeekTransactions),
-                SizedBox(
-                  height: 20,
-                ),
-                _events.isEmpty
-                    ? Column(
-                        children: [
-                          SizedBox(
-                              height: 300,
-                              child: Image.asset('assets/images/money.png')),
-                          SizedBox(
-                            height: 15,
-                          ),
-                          Text(
-                            'Your list is empty - start counting!',
-                            style: TextStyle(
-                                fontSize: 24,
-                                fontFamily: 'Quicksand',
-                                fontWeight: FontWeight.w500),
-                          )
-                        ],
-                      )
-                    : ExpensesListWidget(
-                        eventsA: _events,
-                        deleteEventA: _deleteEvent,
-                      ),
-              ],
-            ),
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // different content depend of MediaQuery.of(context).orientation == Orientation.landscape;
+                  if (landscapeMode)
+                    Switch(
+                        value: showChart,
+                        onChanged: (val) {
+                          setState(() {
+                            showChart = val;
+                          });
+                        }),
+                  if (landscapeMode)
+                    showChart
+                        ? SizedBox(
+                            height:
+
+                                //screen height - app bar height - system bar icons = actual working height area
+                                (MediaQuery.of(context).size.height * 0.73) -
+                                    appBar.preferredSize.height -
+                                    MediaQuery.of(context).padding.top,
+                            child: Chart(
+                                lastWeekTransactionsA: _lastWeekTransactions))
+                        : sharedByOrientationExpensesList,
+                  if (!landscapeMode)
+                    // different height for portrait mode
+                    SizedBox(
+                        height: (MediaQuery.of(context).size.height * 0.37) -
+                            appBar.preferredSize.height -
+                            MediaQuery.of(context).padding.top,
+                        child: Chart(
+                            lastWeekTransactionsA: _lastWeekTransactions)),
+                  if (!landscapeMode) sharedByOrientationExpensesList
+                ]),
           ),
         ),
       ),

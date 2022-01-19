@@ -38,25 +38,28 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.blue,
-      elevation: 10,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          ...allWeekTransactions
-              .map((e) => Flexible(
-                    fit: FlexFit.tight,
-                    child: ChartBar(
-                        dayLabel: (e['day'] as String),
-                        dayAmount: (e['amount'] as double),
-                        procOfTotalWeekAmount: totalMoneySpend == 0.0
-                            ? 0.0
-                            : (e['amount'] as double) / totalMoneySpend),
-                  ))
-              .toList()
-              .reversed
-        ],
+    return Container(
+      margin: EdgeInsets.only(bottom: 20),
+      child: Card(
+        color: Colors.blue,
+        elevation: 10,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            ...allWeekTransactions
+                .map((e) => Flexible(
+                      fit: FlexFit.tight,
+                      child: ChartBar(
+                          dayLabel: (e['day'] as String),
+                          dayAmount: (e['amount'] as double),
+                          procOfTotalWeekAmount: totalMoneySpend == 0.0
+                              ? 0.0
+                              : (e['amount'] as double) / totalMoneySpend),
+                    ))
+                .toList()
+                .reversed
+          ],
+        ),
       ),
     );
   }

@@ -52,88 +52,101 @@ class _InputCardWidgetState extends State<InputCardWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final queryHeight = MediaQuery.of(context).size.height;
+
     return Card(
       color: Colors.amber,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.elliptical(222, 10))),
       elevation: 10,
       child: SizedBox(
-        height: 400,
+        height: queryHeight * 0.55,
         child: Column(
           children: [
-            TextField(
-              onSubmitted: (_) => submitData(),
-              style: TextStyle(fontSize: 22),
-              keyboardType: TextInputType.text,
-              maxLength: 15,
-              controller: nameController,
-              decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(10.0),
-                  labelText: '   expense  ',
-                  labelStyle: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'OpenSans',
-                      fontWeight: FontWeight.w400)),
+            SizedBox(
+              height: queryHeight * 0.05,
             ),
-            TextField(
-              onSubmitted: (_) => submitData(),
-              style: TextStyle(fontSize: 22),
-              keyboardType: TextInputType.number,
-              controller: priceController,
-              maxLength: 6,
-              decoration: InputDecoration(
-                  contentPadding: EdgeInsets.all(10.0),
-                  labelText: '   amount (PLN)',
-                  labelStyle: TextStyle(
-                      fontSize: 20,
-                      fontFamily: 'OpenSans',
-                      fontWeight: FontWeight.w400)),
-            ),
-            Container(
-              margin: EdgeInsets.all(26),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    startUserDate == DateTime.utc(1994)
-                        ? 'no date selected!'
-                        : DateFormat.yMd().format(startUserDate),
-                    style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                  TextButton(
-                      onPressed: () {
-                        setState(() {
-                          startSelectData(context);
-                        });
-                      },
-                      child: Text(
-                        'pick data',
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                      ))
-                ],
+            SizedBox(
+              height: queryHeight * 0.1,
+              child: TextField(
+                onSubmitted: (_) => submitData(),
+                style: TextStyle(fontSize: 22),
+                keyboardType: TextInputType.text,
+                maxLength: 15,
+                controller: nameController,
+                decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10.0),
+                    labelText: '   expense  ',
+                    labelStyle: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'OpenSans',
+                        fontWeight: FontWeight.w400)),
               ),
             ),
             SizedBox(
-              height: 24,
+              height: queryHeight * 0.1,
+              child: TextField(
+                onSubmitted: (_) => submitData(),
+                style: TextStyle(fontSize: 22),
+                keyboardType: TextInputType.number,
+                controller: priceController,
+                maxLength: 6,
+                decoration: InputDecoration(
+                    contentPadding: EdgeInsets.all(10.0),
+                    labelText: '   amount (PLN)',
+                    labelStyle: TextStyle(
+                        fontSize: 20,
+                        fontFamily: 'OpenSans',
+                        fontWeight: FontWeight.w400)),
+              ),
+            ),
+            SizedBox(
+              height: queryHeight * 0.12,
+              child: Container(
+                margin: EdgeInsets.all(2),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      startUserDate == DateTime.utc(1994)
+                          ? 'no date selected!'
+                          : DateFormat.yMd().format(startUserDate),
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
+                    TextButton(
+                        onPressed: () {
+                          setState(() {
+                            startSelectData(context);
+                          });
+                        },
+                        child: Text(
+                          'pick data',
+                          style: TextStyle(
+                              fontSize: 24, fontWeight: FontWeight.bold),
+                        ))
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: queryHeight * 0.03,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Container(
-                  child: ElevatedButton(
-                      style: ButtonStyle(
-                        padding: MaterialStateProperty.all(EdgeInsets.all(10)),
-                      ),
-                      onPressed: () {
-                        submitData();
-                      },
-                      child: Text(
-                        'add new event',
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold),
-                      )),
-                ),
+                ElevatedButton(
+                    style: ButtonStyle(
+                      padding: MaterialStateProperty.all(EdgeInsets.all(10)),
+                    ),
+                    onPressed: () {
+                      submitData();
+                    },
+                    child: Text(
+                      'add new event',
+                      style:
+                          TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    )),
               ],
             ),
           ],
